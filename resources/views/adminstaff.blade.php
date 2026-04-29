@@ -86,61 +86,73 @@
     </div>
 
     {{-- ADD ADMIN MODAL --}}
-    <div id="addAdminModal" class="modal-overlay">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Add New Staff / Admin</h3>
-                <button type="button" class="close-btn" onclick="closeModal('addAdminModal')">&times;</button>
-            </div>
-
-            <form action="{{ route('adminstaff.store') }}" method="POST">
-                @csrf
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label>Family Name</label>
-                        <input type="text" name="familyname" required placeholder="Full Name">
-                    </div>
-                    <div class="form-group">
-                        <label>Username</label>
-                        <input type="text" name="username" required placeholder="User_01">
-                    </div>
-                    <div class="form-group">
-                        <label>Email Address</label>
-                        <input type="email" name="email" required placeholder="email@gym.com">
-                    </div>
-                    <div class="form-group">
-                        <label>Contact Number</label>
-                        <input type="text" name="contactnum" required placeholder="09xxxxxxxxx">
-                    </div>
-                    <div class="form-group">
-                        <label>Role</label>
-                        <select name="role" required>
-                            <option value="staff">Staff (Receptionist)</option>
-                            <option value="admin">Admin</option>
-                            @if(auth()->guard('admin')->user()->role === 'super_admin')
-                                <option value="super_admin">Super Admin</option>
-                            @endif
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Initial Password</label>
-                        <div style="position: relative;">
-                                <input type="password" name="password" id="adminPassInput" required placeholder="********">
-                                <button type="button" id="toggleAdminPass" 
-                                    style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background:none; border:none; color:#aaa; cursor:pointer;">
-                                    <i id="eyeIcon" class="fa-solid fa-eye"></i>
-                                </button>
-                            </div>
-                        </div>
-                     
-
-                <div class="modal-footer">
-                    <button type="button" class="btn-cancel" onclick="closeModal('addAdminModal')">Cancel</button>
-                    <button type="submit" class="btn-register">Create Account</button>
-                </div>
-            </form>
+<div id="addAdminModal" class="modal-overlay">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Add New Staff / Admin</h3>
+            <button type="button" class="close-btn" onclick="closeModal('addAdminModal')">&times;</button>
         </div>
+
+        <form action="{{ route('adminstaff.store') }}" method="POST">
+            @csrf
+            {{-- DISPLAY ERRORS HERE: This is critical for knowing why the save failed --}}
+            @if ($errors->any())
+                <div style="background: #fee2e2; color: #991b1b; padding: 0.8rem; border-radius: 8px; margin-bottom: 1rem; font-size: 0.85rem;">
+                    <strong>Dili ma-save:</strong>
+                    <ul style="margin: 0; padding-left: 1.2rem;">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            <div class="form-grid"> {{-- START OF SINGLE GRID --}}
+                <div class="form-group">
+                    <label>Family Name</label>
+                    <input type="text" name="familyname" required placeholder="Full Name" value="{{ old('familyname') }}">
+                </div>
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" name="username" required placeholder="User_01" value="{{ old('username') }}">
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" name="email" required placeholder="email@gym.com" value="{{ old('email') }}">
+                </div>
+                <div class="form-group">
+                    <label>Contact Number</label>
+                    <input type="text" name="contactnum" required placeholder="09xxxxxxxxx" value="{{ old('contactnum') }}">
+                </div>
+                <div class="form-group">
+                    <label>Role</label>
+                    <select name="role" required>
+                        <option value="staff" {{ old('role') == 'staff' ? 'selected' : '' }}>Staff (Receptionist)</option>
+                        <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Admin</option>
+                        @if(auth()->guard('admin')->user()->role === 'super_admin')
+                            <option value="super_admin" {{ old('role') == 'super_admin' ? 'selected' : '' }}>Super Admin</option>
+                        @endif
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Initial Password</label>
+                    <div style="position: relative;">
+                        <input type="password" name="password" id="adminPassInput" required placeholder="********">
+                        <button type="button" id="toggleAdminPass" 
+                                style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background:none; border:none; color:#aaa; cursor:pointer;">
+                            <i id="eyeIcon" class="fa-solid fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+            </div> {{-- END OF SINGLE GRID --}}
+
+            <div class="modal-footer">
+                <button type="button" class="btn-cancel" onclick="closeModal('addAdminModal')">Cancel</button>
+                <button type="submit" class="btn-register">Create Account</button>
+            </div>
+        </form>
     </div>
+</div>
 
     {{-- EDIT ADMIN MODAL --}}
     <div id="editAdminModal" class="modal-overlay">
