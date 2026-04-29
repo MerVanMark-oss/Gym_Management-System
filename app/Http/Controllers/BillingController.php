@@ -264,6 +264,13 @@ $failedCount = Member::where(function($q) {
                                         : null,
         ]);
 
-        return back()->with('success', 'Refund disbursement recorded successfully.');
+        $memberName = $refund->member->first_name ?? 'Member';
+    if ($request->disbursement_status === 'disbursed') {
+        ActivityLog::record('Refund disbursed to member', $memberName, 'fa-money-bill-transfer', 'green');
+    } else {
+        ActivityLog::record('Refund marked as awaiting disbursement', $memberName, 'fa-clock', 'amber');
+    }
+
+    return back()->with('success', 'Refund disbursement recorded successfully.');
     }
 }
