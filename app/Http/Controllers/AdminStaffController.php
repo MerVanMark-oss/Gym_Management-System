@@ -53,7 +53,7 @@ class AdminStaffController extends Controller
             'status' => 'active', 
         ]);
 
-        ActivityLog::record('Added a new member', $newAdmin->first_name . ' (' . ucfirst($newAdmin->role) . ')', 'fa-user-plus', 'blue');
+        ActivityLog::record('Added a new member', $newAdmin->familyname . ' (' . ucfirst($newAdmin->role) . ')', 'fa-user-plus', 'blue');
         return redirect()->route('adminstaff.index')->with('success', 'New staff member added successfully!');
     }
 

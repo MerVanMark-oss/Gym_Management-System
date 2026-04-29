@@ -124,9 +124,15 @@
                     </div>
                     <div class="form-group">
                         <label>Initial Password</label>
-                        <input type="password" name="password" required placeholder="********">
-                    </div>
-                </div>
+                        <div style="position: relative;">
+                                <input type="password" name="password" id="adminPassInput" required placeholder="********">
+                                <button type="button" id="toggleAdminPass" 
+                                    style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background:none; border:none; color:#aaa; cursor:pointer;">
+                                    <i id="eyeIcon" class="fa-solid fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                     </div>
 
                 <div class="modal-footer">
                     <button type="button" class="btn-cancel" onclick="closeModal('addAdminModal')">Cancel</button>

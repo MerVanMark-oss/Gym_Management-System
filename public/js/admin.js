@@ -5,6 +5,7 @@ window.openModal = function(modalId) {
     const modal = document.getElementById(modalId);
     if (!modal) return;
 
+    modal.style.display = 'flex';
     modal.classList.add('is-open');
     modal.classList.add('active');
 
