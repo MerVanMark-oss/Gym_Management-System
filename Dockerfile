@@ -52,6 +52,4 @@ RUN mkdir -p storage/framework/cache storage/framework/sessions \
 
 EXPOSE 10000
 
-RUN php artisan config:clear && php artisan cache:clear
-
 CMD ["apache2-foreground"]
