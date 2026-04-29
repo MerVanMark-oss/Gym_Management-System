@@ -1,0 +1,2372 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+html, body {
+ margin: 0;
+    padding: 0;
+    width: 100%;
+    /* This prevents the body from being a different size than the content */
+    min-height: 100vh; 
+    background-color: var(--bg-color); 
+    overflow-x: hidden;
+    
+}
+:root {
+
+    --bg-color: #262626;      /* Main background */
+
+    --sidebar-bg: #DAAB2D;   /* Sidebar background */
+
+    --card-bg: #DAAB2D;      /* Dashboard cards */
+
+    --active-pill: #504e4e
+;  /* Darker blue for active state */
+
+    --text-color: #1a202c;
+
+}
+
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+
+
+
+
+
+
+/* 1. Outer Wrapper - Locks sidebar to the left */
+
+.container {
+    display: flex; /* Sidebar on left, Content on right */
+    width: 100%;   /* Fill the browser window width-wise */
+    min-height: 100vh; /* Fill the browser window height-wise */
+    grid-template-columns: 280px 1fr;
+    margin: 0;
+    padding: 0;
+    width: 100vw; /* Viewport Width - 100% of the screen */
+    max-width: none; /* Removes any limits */
+
+}
+
+
+
+/* --- Sidebar Base Styles --- */
+.sidebar {
+    width: 280px;
+    flex-shrink: 0;
+    position: fixed;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    z-index: 1000;
+    overflow-y: auto;
+    background-color: var(--sidebar-bg);
+}
+
+.sidebar ul {
+    list-style: none;
+    width: 100%;
+}
+
+.sidebar li {
+    width: 100%;
+    position: relative;
+}
+
+.sidebar a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    padding: 1.2rem 1.5rem;
+    gap: 12px;
+    margin-left: 1.5rem;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    border-radius: 40px 0 0 40px;
+}
+
+/* --- 1. The NEW Hover Effect --- */
+
+.sidebar li:not(.active):not(.sidebar-user-profile) a:hover {
+    background-color: rgba(89, 90, 17, 0.205);
+    color: #ffffff; 
+    padding-left: 2rem; 
+}
+
+/* --- 2. The Active State (Unchanged Hover) --- */
+.sidebar li.active a {
+    background-color: var(--active-pill);
+    color: white;
+    cursor: default;
+}
+
+/* --- 3. Liquid Curves (Unchanged) --- */
+.sidebar li.active::before {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: -50px;
+    width: 50px;
+    height: 50px;
+    background-color: transparent;
+    border-radius: 50%;
+    box-shadow: 25px 25px 0 0 var(--active-pill);
+    pointer-events: none;
+}
+
+.sidebar li.active::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: -50px;
+    width: 50px;
+    height: 50px;
+    background-color: transparent;
+    border-radius: 50%;
+    box-shadow: 25px -25px 0 0 var(--active-pill);
+    pointer-events: none;
+}
+
+
+
+
+/* 4. Main Content Area - Color must match the active pill for seamless curves */
+
+.main-contents {
+   /* 1. Alignment with Fixed Sidebar */
+    margin-left: 280px;      /* Matches sidebar width exactly */
+    width: calc(100% - 280px); /* Ensures it doesn't overflow horizontally */
+    
+    /* 2. Background & Spacing */
+    background-color: var(--active-pill); 
+    padding: 2.5rem;
+    min-height: 100vh;
+    
+    /* 3. Grid Structure */
+    display: flex;   
+     flex-direction: column;
+    grid-template-rows: auto min-content min-content min-content;
+    gap: 1.5rem;
+    align-content: start;
+
+    
+    /* 4. Fix for scrolling */
+    overflow-x: hidden;      /* Prevents unwanted horizontal scroll */
+
+}
+
+.main-contents h1 {
+    font-size: 2.5rem;          /* Makes it significantly larger */
+    font-weight: 800;          /* Extra Bold weight */
+    color: white;              /* Keeps it clean against the blue */
+    margin-top: 0 ;    /* Tightens space with the sub-text */
+    letter-spacing: -0.5px;    /* Gives it a modern, "compressed" professional look */
+    text-transform: capitalize
+}
+
+.main-contents p {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.8); /* Slightly faded white for contrast */
+    margin-bottom: 2rem;
+    font-weight: 400;
+}
+
+
+/* Cards */
+
+/* Ensure cards stay inside the main content area */
+[class^="card-"] {
+  background-color: var(--card-bg);
+    border-radius: 20px;
+    padding: 1.5rem;
+    width: 100%;
+}
+.card-totalmembers, 
+.card-Active-members, 
+.card-total-equipments, 
+.card-revenue {
+    grid-row: 2; /* Forces them into the second row below H1 */
+}
+
+
+
+
+/* Membership Card: Slim and Tall */
+.card-membershiptype { 
+    grid-column: span 1; 
+    grid-row: span 2; /* It will be as tall as Growth + Recent Activity combined */
+    background: var(--card-bg);
+    border-radius: 15px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+.card-membershiptype h4 {
+    margin: 0;
+    /* Option B: Add specific space only under the title */
+    margin-bottom: 15px; 
+    font-size: 1rem;
+    font-weight: 600;
+    color: #000;
+    width: 100%;
+}
+
+/* Growth & Recent Activity: Wide */
+/* Growth & Recent Activity: Wide */
+.card-member-growth, 
+.card-recentactivity { 
+    grid-column: span 3; 
+    background: var(--card-bg);
+    border-radius: 15px;
+    padding: 1.5rem;
+    
+    /* FIX: Prevents the card from pushing past the screen width */
+    min-width: 0; 
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.card-member-growth h4 {
+    margin: 0;
+    margin-bottom: 15px; /* Space between title and the bar chart */
+    
+    /* Pushes text to the top-left corner of its container */
+    text-align: left;
+    display: block;
+    width: 100%;
+    
+    /* Font Styling */
+    font-size: 1rem;
+    font-weight: 600;
+    color: #000;
+    
+    /* Optional: Fine-tune the position if padding isn't enough */
+    padding-left: 5px;
+}
+
+
+
+/* Ensure the canvas doesn't break the grid */
+.chart-wrapper {
+    width: 100%;
+    height: 300px; 
+    position: relative;
+    
+    /* FIX: Ensures Chart.js centers and doesn't overflow */
+    display: block; /* Changed from flex to block for better Chart.js sizing */
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+/* Ensure the canvas inside respects the wrapper */
+canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+
+
+
+
+.members-header {
+
+   display: flex;
+    justify-content: space-between; /* Pushes Title to left, Button to right */
+    align-items: center; /* Centers them vertically */
+    width: 100%;
+    margin-bottom: 2rem; /* Space before the search bar */
+    padding-top: 0.5rem;   /* Fine-tune top spacing if needed */
+}
+
+
+
+.add-member-btn {
+    background-color: #DAAB2D;
+    color: #1a202c;
+    padding: 0.8rem 1.5rem;
+    border-radius: 30px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+
+}
+
+.add-member-btn:hover {
+    background-color: #94751f; 
+    transform: translateY(-2px);
+    color: #1a202c;
+}
+
+/* Active Effect: "Pressed" look */
+.add-member-btn:active {
+    transform: translateY(0);
+}
+
+
+
+/* Search Area */
+
+.search-filter-container {
+display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    background-color: var(--card-bg); /* Use that light blue background */
+    padding: 1rem;
+    border-radius: 15px;
+    width: 100%;
+}
+
+
+
+.search-bar {
+   flex: 1; /* Pushes the filter button to the right */
+    background-color: white;
+    border-radius: 10px;
+    padding: 0.8rem 1.2rem;
+    display: flex;
+    align-items: center;
+}
+
+
+
+.search-bar input {
+
+    background: transparent;
+
+    border: none;
+
+    outline: none;
+
+    width: 100%;
+
+    font-size: 1rem;
+
+}
+
+
+
+.filter-btn {
+
+    background-color: #a58325;
+
+    color: #1a202c;
+
+    padding: 0.8rem 2rem;
+
+    border-radius: 12px;
+
+    border: none;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    cursor: pointer;
+
+}
+
+
+
+/* Table Design */
+
+.table-wrapper {
+width: 100%;
+    background-color: #707070;
+    border-radius: 15px;
+    overflow: hidden;
+
+}
+
+
+
+.row.header {
+    background-color: #000000; /* Matches your header color */
+    color: white;
+    font-weight: bold;
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1.5fr 1fr 1.5fr 1fr 1fr;
+    text-align: center;
+}
+
+
+
+.member-row {
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr 1fr 1.5fr 1fr 1.5fr 1fr 1fr;
+
+    padding: 1.2rem;
+
+    text-align: center;
+
+    border-bottom: 1px solid #ddd;
+
+}
+
+
+
+/* Zebra Striping from your image */
+
+.member-row:nth-child(even) {
+
+    background-color: #e2e8f0;
+
+}
+
+
+
+.member-row:nth-child(odd) {
+
+    background-color: white;
+
+}
+
+
+
+/* --- DASHBOARD SPECIFIC (Subnet A) --- */
+/* Header Layout */
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 1.5rem;
+}
+
+.dashboard-grid {
+    display: grid;
+   grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-auto-rows: minmax(180px, auto);
+    gap: 1.5rem;
+    width: 100%;
+}
+
+/* Stats Row - 4 Cards Grid */
+.dashboard-stats-row {
+   display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 1.1rem;
+    width: 100%;
+}
+
+/* Card Base Style */
+.card-dashboard {
+    background: var(--card-bg); /* Ensure this variable is defined in your root */
+    border-radius: 15px;
+    min-height: 100px; 
+    height: 90px;
+    padding-left: 10px; 
+    display: flex;
+    align-items: center;
+    border-left: 6px solid transparent; 
+    overflow: visible;
+    text-decoration: none; /* For the <a> tag */
+    color: inherit;
+    transition: transform 0.2s ease;
+}
+
+.card-dashboard:hover {
+    transform: translateY(-3px);
+}
+
+/* Accent Borders - Matching your specific colors */
+.card-dashboard.total-members { border-left-color: #60a5fa; }   /* Blue */
+.card-dashboard.active-members { border-left-color: #fb7a24; }  /* Yellow/Amber */
+.card-dashboard.equipment      { border-left-color: #a78bfa; }   /* Purple */
+.card-dashboard.revenue        { border-left-color: #10b981; }   /* Green (Success) */
+
+/* dashboard Grid */
+.dashboard-grid {
+      display: grid;
+    grid-template-columns: 380px 1fr;
+    grid-template-rows: 350px auto;
+    gap: 3rem;
+
+}
+
+.dashboard-grid-upper {
+    grid-column: 1 / span 2; /* take full width */
+    grid-row: 1;
+
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 1.5rem;
+    height: 350px;
+}
+.card-membershiptype{
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.card-member-growth{
+    grid-column: 2;
+    grid-row: 1;
+}
+.card-recentactivity {
+    grid-column: 1 / span 2;
+    grid-row: 2;
+}
+
+
+.card-membershiptype, 
+.card-member-growth {
+    background: var(--card-bg);
+    border-radius: 15px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    /* Ensure cards fill the 350px height of the grid row */
+    height: 100%; 
+    
+    
+}
+.card-recentactivity {
+    background: #DAAB2D;
+    border: 1px solid #2a2a2a;
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    flex: 1; /* Occupies all remaining space below charts */
+    min-height: 0; 
+    overflow: hidden;
+    margin-top: 20px;
+}
+.activity-list {
+    flex: 1;
+}
+
+.card-recentactivity h4 {
+    color: #f0f0f0;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.activity-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.activity-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+}
+
+.activity-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 0.85rem;
+}
+
+.activity-details {
+    flex: 1;
+}
+
+.activity-text {
+    color: #665320 !important;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    margin: 0 0 4px;
+}
+
+.activity-target {
+    color: #000000;
+}
+
+.activity-time {
+    color: #555;
+    font-size: 0.78rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.no-activity {
+    color: #555;
+    font-size: 0.85rem;
+    text-align: center;
+    padding: 20px 0;
+}
+
+
+
+
+/* Icon Circle Styling */
+.card-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: black;
+}
+
+/* Icon Backgrounds matching your CSS logic */
+.bg-blue   { background-color: #60a5fa; }
+.bg-yellow { background-color: #fbbf24; }
+.bg-purple { background-color: #a78bfa; }
+.bg-green  { background-color: #10b981; }
+
+/* Text Info Container */
+.card-info {
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    margin-left: 2px; 
+    padding: 5px 0;
+    gap: 5px; 
+    flex: 1;
+}
+
+.card-info p {
+    font-size: 0.8rem;
+    margin: 0;
+    line-height: 1.2;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.7); /* Slightly dimmed text */
+    white-space: nowrap; 
+}
+
+.card-info h3 {
+    font-weight: 600;
+    font-size: 1.2rem;
+    margin: 0;
+    line-height: 1;
+    text-align: left;
+}
+
+
+
+.card-stats {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+}
+
+
+.card-stats:hover {
+    transform: translateY(-5px);
+}
+
+.bg-blue   { background-color: #3b82f6; color: white; }
+.bg-green  { background-color: #10b981; color: white; }
+.bg-purple { background-color: #8b5cf6; color: white; }
+.bg-gold   { background-color: #f59e0b; color: white; }
+
+.card-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-right: 15px;
+}
+
+
+
+/* --- MEMBERS SPECIFIC (Subnet B) --- */
+.members-page {
+    grid-column: span 4; /* FORCES the page to take the full width of the dashboard grid */
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.members-page .table-wrapper {
+    width: 100%;
+    background: #111; /* Changed to dark to match the new dashboard aesthetic */
+    border-radius: 15px;
+    overflow: hidden; 
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.member-grid-row {
+    display: grid;
+    grid-template-columns: 0.5fr 1fr 1fr 1.2fr 1.2fr 1.5fr 1fr 0.8fr;
+    padding: 1.2rem;
+    text-align: center;
+    align-items: center;
+    position: relative;
+    transition: all 0.2s ease-in-out;
+}
+
+/* --- Header Row --- */
+.header-row {
+    background-color: #929292;
+    color: #ffffff;
+    font-weight: bold;
+    letter-spacing: 1px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* --- Odd Rows (Black) --- */
+.table-wrapper .member-grid-row:nth-child(odd):not(.header-row) {
+    background-color: #929292;
+    color: #ffffff;
+}
+
+/* --- Even Rows (Yellow) --- */
+.table-wrapper .member-grid-row:nth-child(even) {
+    background-color: #fde977;
+    color: #333333;
+}
+
+/* --- PREMIUM BLUE HOVER EFFECT --- */
+.table-wrapper .member-grid-row:not(.header-row):hover {
+    background-color: #3f81ec !important; /* Premium Blue */
+    color: #ffffff !important;           /* White text on blue */
+    transform: scale(1.005);             /* Subtle "pop" */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    z-index: 10;                         /* Sit above other rows */
+    cursor: pointer;
+}
+
+/* Ensure action icons turn white on hover */
+.member-grid-row:hover .edit-btn,
+.member-grid-row:hover .delete-btn {
+    color: #ffffff !important;
+}
+
+/* --- STATUS HIGHLIGHT ADJUSTMENT --- */
+/* You can adjust the "Pending" cell here */
+.status-cell-pending {
+    background-color: rgba(243, 156, 18, 0.2) !important; /* Muted Gold/Amber */
+    color: #f39c12 !important;
+    font-weight: 700;
+    border-left: 3px solid #f39c12;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Reset highlight when the whole row is hovered and turns blue */
+.member-grid-row:hover .status-cell-pending {
+    background-color: transparent !important;
+    color: #ffffff !important;
+    border-left-color: #ffffff;
+}
+
+.member-grid-row div:last-child {
+    position: relative;
+    z-index: 5;
+}
+
+.edit-btn {
+    cursor: pointer !important;
+    pointer-events: auto !important;
+}
+
+/* Container for the text */
+.title-group {
+    display: flex;
+    flex-direction: column; /* Stack H1 on top of P */
+    gap: -10px; /* Small space between them */
+}
+
+/* The Big Bold Title */
+.title-group h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: white;
+    margin: 0; /* Remove default margins */
+    line-height: 1.3; /* Tighten the line spacing for a more compact look */
+}
+
+/* The Sub-text */
+.subtitle {
+    font-size: 1rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.7); /* White with 70% transparency */
+    margin: 0;
+    letter-spacing: 1px;
+}
+
+.equipments-header {
+
+   display: flex;
+    justify-content: space-between; /* Pushes Title to left, Button to right */
+    align-items: center; /* Centers them vertically */
+    width: 100%;
+    margin-bottom: 0rem; /* Space before the search bar */
+    padding-top: 0.5rem;   /* Fine-tune top spacing if needed */
+}
+
+
+/* Equipment Specific Grid */
+.equipment-page {
+    grid-column: span 4;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Stats Row - 4 Cards with Accent Borders */
+.equipment-stats-row {
+   display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 equal subnets */
+    gap: 1.5rem;
+    width: 100%;
+}
+
+.card-equipment {
+    background: var(--card-bg);
+    border-radius: 15px;
+    height: 90px;
+    padding: 15px 10px; /* Uniform padding */
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* THIS pushes the number to the right */
+    border-left: 6px solid transparent;
+    overflow: visible;
+}
+
+.card-content-right {
+    display: flex;
+    flex-direction: column; /* Stacks the p above the h3 */
+    align-items: flex-end;   /* Pushes both p and h3 to the right edge */
+    justify-content: center; /* Centers the stack vertically in the card */
+    text-align: right;
+    height: 100%;
+}
+
+/* Accent Colors from Image */
+.card-equipment.total { border-left-color: #a78bfa; }
+.card-equipment.good { border-left-color: #60a5fa; }
+.card-equipment.maintenance { border-left-color: #fb7a24; }
+.card-equipment.repair { border-left-color: #d1d5db; }
+
+.card-icon {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    font-size: 1.2rem;
+}
+
+/* Individual Icon Backgrounds & Icon Colors */
+.equipment-total.bg-purple { background-color: #a78bfa;  }
+.equipment-good.bg-blue { background-color: #60a5fa; }
+.equipment-maintenance.bg-amber  { background-color: #fb7a24  }
+.equipment-repair.bg-gray   { background-color: #d1d5db !important;}
+
+
+/* Adjust the text inside the card */
+.card-info {
+    display: flex;
+    flex-direction: column; /* Stacks text vertically */
+    justify-content: center;
+    gap: 15px; /* Creates a clean gap between title and number */
+    flex: 0 1 auto; /* Allows it to take up the rest of the card's width */
+    
+}
+
+.card-content-right p {
+    font-size: 0.7rem;
+    margin: 0 0 5px 0; /* Add a tiny bit of space below the label */
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.7);
+    letter-spacing: 0px;
+    white-space: nowrap;
+
+    
+    
+   
+}
+
+.card-content-right h3 {
+    font-size: 1.2rem; /* Make the number nice and big */
+    font-weight: 700;
+    margin: 0;
+    color: #000000;
+    line-height: 1;
+}
+
+.add-equipment-btn {
+    /* The specific color you requested */
+    background-color: #DAAB2D; 
+    
+    /* Dark text for better readability on light blue */
+    color: #1a202c; 
+    
+    padding: 0.8rem 1.5rem;
+    border-radius: 30px;
+    border: none;
+    font-weight: 700; /* Bold to make it pop */
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Hover Effect: Darkens slightly when the mouse is over it */
+.add-equipment-btn:hover {
+    background-color: #997920; 
+    transform: translateY(-2px);
+    color: #1a202c;
+}
+
+/* Active Effect: "Pressed" look */
+.add-equipment-btn:active {
+    transform: translateY(0);
+}
+
+/* Filters Layout */
+.filter-section-equipment {
+    background: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: 15px;
+    display: flex;
+    gap: 2rem;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+}
+
+.filter-group label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #000000;
+}
+
+.filter-group select {
+    background: #9b7f33;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    outline: none;
+}
+
+/* Equipment Table Grid */
+.equipment-grid-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 0.8fr;
+    gap: 1rem;
+    padding: 1.2rem;
+    text-align: center;
+    align-items: center;
+}
+
+.delete-equipment-btn {
+    background: transparent;
+    border: 1px solid #5c2a2a;
+    color: #ff4d4d;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+    font-size: 0.85rem;
+}
+
+.delete-equipment-btn:hover {
+    background: #ff4d4d;
+    color: #fff;
+}
+
+.card-link, .card-equipment {
+    width: 100%; /* Let the grid decide the width */
+    min-width: 0; /* Allows the card to be as small as the grid lane */
+}
+.card-link {
+    display: flex;         /* 1. Makes the link a flex container */
+    text-decoration: none;
+    width: 100%;           /* 2. Matches the width of the Grid Lane */
+    height: 90px;         /* 3. SET MANUALLY: Matches the card's height */
+    overflow: hidden;      /* 4. Keeps the card's corners inside the link */
+    border-radius: 15px;
+    margin: 0;
+    padding: 0;
+    background-color: #929292;
+    transition: background-color 0.7s ease, transform 0.2s ease;
+}
+.card-link:hover .card-equipment {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.card-link:hover {
+    background-color: #DAAB2D; 
+    transform: translateY(-4px);
+    color: #1a202c;
+}
+.card-link:active {
+    transform: translateY(0);
+}
+
+/* Staff Header & Action Button */
+/* Main Page Container */
+.staff-header {
+    display: flex;
+    justify-content: space-between; /* Pushes Title Left, Button Right */
+    align-items: center;           /* Aligns them vertically */
+    width: 100%;
+    margin-bottom: 0rem;
+}
+.staff-page {
+    grid-column: span 4;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Stats Row - 4 Cards */
+.staff-stats-row {
+   display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 1.5rem;
+    width: 100%;
+}
+
+.card-staff {
+    background: var(--card-bg);
+    border-radius: 15px;
+    min-height: 100px; 
+    height: 90px;
+    padding-left: 12px; 
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-left: 6px solid transparent; 
+    overflow: visible;
+}
+
+/* Accent Borders */
+.card-staff.total { border-left-color: #a78bfa; }      /* Purple */
+.card-staff.active { border-left-color: #fb7a24; }     /* Yellow */
+.card-staff.instructor { border-left-color: #60a5fa; } /* Blue */
+.card-staff.on-leave { border-left-color: #d1d5db; }   /* Gray */
+
+/* Icon Backgrounds */
+.staff-total.bg-blue { background-color: #a78bfa; }
+.staff-active.bg-yellow { background-color: #fb7a24; }
+.staff-instructor.bg-purple { background-color: #60a5fa; }
+.staff-on-leave.bg-gray { background-color: #d1d5db !important; }
+
+/* Text inside cards */
+.card-info {
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    margin-left: 15px; 
+    padding: 5px 0;
+    gap: 5px; 
+    flex: 0 1 auto;
+}
+
+.card-info p {
+    font-size: 0.8rem;
+    margin: 0;
+    line-height: 1.2;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.8);
+    white-space: nowrap; 
+}
+
+.card-info h3 {
+    font-weight: 600;
+    font-size: 1.2rem;
+    margin: 0;
+    line-height: 1;
+    text-align: left; /* Changed to left for better alignment with icon */
+}
+.add-staff-btn {
+    background-color: #DAAB2D; 
+    color: #1a202c; 
+    padding: 0.8rem 1.5rem;
+    border-radius: 30px;
+    border: none;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.add-staff-btn:hover {
+    background-color: #9e7d24; 
+    transform: translateY(-2px);
+}
+
+/* Filters Section */
+.filter-section-staff {
+    background: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: 15px;
+    display: flex;
+    gap: 2rem;
+}
+.filter-section-equipment form {
+    display: flex;
+    gap: 1rem;
+    width: 100%; 
+    justify-content: space-between;
+}
+
+
+/* --- STAFF ZEBRA STRIPING LOGIC --- */
+
+/* --- Base Row Styling --- */
+.staff-grid-row {
+    display: grid;
+    grid-template-columns: 0.6fr 1.2fr 1.5fr 1fr 1fr 1fr 1.2fr 0.6fr;
+    gap: 10px;
+    padding: 12px 20px;
+    text-align: center;
+    align-items: center;
+    position: relative;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* --- Header Row (Static & No-Hover) --- */
+.staff-grid-row.header-row {
+    background-color: #929292!important;
+    color: #ffffff !important;
+    font-weight: bold;
+    border-radius: 12px 12px 0 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: none !important; /* Forces no animation */
+}
+
+/* --- Apply Transition only to Data Rows --- */
+.table-wrapper .staff-grid-row:not(.header-row) {
+    transition: all 0.2s ease-in-out; 
+}
+
+/* --- Zebra Striping --- */
+.table-wrapper .staff-grid-row:not(.header-row):nth-child(odd) {
+    background-color: #929292;
+    color: #ffffff;
+}
+
+.table-wrapper .staff-grid-row:not(.header-row):nth-child(even) {
+    background-color: #f5dd72;
+    color: #333333;
+}
+
+/* --- PREMIUM BLUE HOVER EFFECT (Excluding Header) --- */
+.table-wrapper .staff-grid-row:not(.header-row):hover {
+    background-color: #3f81ec !important; 
+    color: #ffffff !important;           
+    transform: scale(1.008);             
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    z-index: 20;                         
+    cursor: pointer;
+}
+
+/* --- Icon Consistency --- */
+.table-wrapper .staff-grid-row:not(.header-row):hover i {
+    color: #ffffff !important;
+}
+
+.table-wrapper .staff-grid-row:not(.header-row):nth-child(even) .edit-btn {
+    color: #333333;
+}
+
+/* --- Status Cell Logic --- */
+.column-highlight-pending {
+    background-color: rgba(243, 156, 18, 0.15); 
+    color: #f39c12;
+    font-weight: 700;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-left: 3px solid #f39c12;
+}
+
+/* Only trigger column reset on data-row hover */
+.staff-grid-row:not(.header-row):hover .column-highlight-pending {
+    background-color: transparent;
+    color: #ffffff;
+    border-left-color: #ffffff;
+}
+
+.card-link {
+    display: flex;
+    text-decoration: none;
+    width: 100%;
+    height: 90px;
+    overflow: hidden;
+    border-radius: 15px;
+    background-color: #788db3;
+    transition: all 0.3s ease;
+}
+
+.card-link:hover {
+    background-color: #504e4e; 
+    transform: translateY(-4px);
+}
+
+.card-link:hover .card-staff {
+    transform: translateY(-2px);
+}
+
+
+
+/* Container */
+.billing-page {
+    grid-column: span 4;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Stats Row - 4 Cards */
+.billing-stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 1.5rem;
+    width: 100%;
+}
+
+.card-billing {
+    background: var(--card-bg); /* Using your CSS variable */
+    border-radius: 15px;
+    height: 90px;
+    padding-left: 12px; 
+    display: flex;
+    align-items: center;
+    border-left: 6px solid transparent; 
+    overflow: visible;
+    transition: transform 0.2s ease;
+}
+
+.card-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.card-billing:hover {
+    transform: translateY(-3px);
+}
+
+/* Billing Accent Borders */
+.card-billing.total { border-left-color: #4ade80; }     /* Green - Revenue */
+.card-billing.refunds { border-left-color: #fb7a24; }   /* Amber - refunds*/
+.card-billing.completed { border-left-color: #60a5fa; } /* Blue - Today */
+.card-billing.failed { border-left-color: #f87171; }    /* Red - Failed */
+
+/* Text inside cards */
+.card-info {
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    flex: 0 1 auto;
+}
+
+.card-info p {
+    font-size: 0.8rem;
+    margin: 0;
+    line-height: 1.2;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.8);
+    white-space: nowrap; 
+}
+
+.card-info h3 {
+    font-weight: 500;
+    font-size: 1.2rem;
+    margin: 0;
+    line-height: 1;
+    text-align: left;
+    color: #000000;
+}
+/* Container for the icon */
+.card-icon {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px; /* Rounded square style */
+    flex-shrink: 0;
+    overflow: hidden; /* Prevents a giant image from spilling out */
+    position: relative;
+    overflow: hidden; /* Ensures nothing leaks out */
+    color: black !important; /* Default icon color */
+    margin: 2;
+}
+
+/* THE FIX: This ensures the PNG image is visible */
+.card-icon img {
+   width: 28px !important;  /* Forces the 0 to become 28 */
+    height: 28px !important;
+    min-width: 28px !important; /* Prevents collapsing to 0 */
+    display: inline-block !important;
+    object-fit: contain;
+    filter: none; /* Resets any inherited filters that might be hiding the image */
+}
+
+/* Background Colors for the icon boxes */
+.bg-green  { background-color: #4ade80 !important; }
+.bg-yellow { background-color: #fb7a24 !important; }
+.bg-blue   { background-color: #60a5fa !important; }
+.bg-red    { background-color: #f87171 !important; }
+
+.payment-container {
+  width: 300px;
+  background: #8fa2c4;
+  padding: 15px;
+  border-radius: 10px;
+  color: #000;
+}
+
+.billing-action-wrapper {
+    display: flex;
+    justify-content: flex-end; /* Pushes the gold bar to the right */
+    width: 100%;
+    padding-right: 0; /* Adjust if you want a small gap from the edge */
+}
+
+/* --- Smaller Billing Search & Filter --- */
+/* 1. THE ALIGNMENT CONTAINER - The Force Push */
+.billing-action-wrapper {
+    display: flex !important;
+    justify-content: space-between; /* Pushes Label to Left, Bar to Right */
+    align-items: center;            /* Vertically centers the text with the bar */
+    width: 100% !important;
+    max-width: none !important; /* Removes any width limits */
+    padding: 0 !important;
+    margin: 10px 0 5px 0; /* Space top: 10px, bottom: 5px */
+    box-sizing: border-box;
+    clear: both;
+}
+
+/* 2. THE UPDATED GOLD BAR */
+.billing-gold-bar {
+    background-color: #d4a017;
+    padding: 5px 10px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    flex: 0.63;     
+    gap: 8px;
+    width: fit-content;             /* Shrinks to fit content on the right */
+    min-width: 350px;               /* Keeps the search area a decent size */
+}
+
+/* 3. INPUT AREA */
+.billing-search-form {
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    padding: 5px 12px;
+    border-radius: 8px;
+    height: 32px;                   /* Slightly shorter to keep it sleek */
+    flex: 1;
+}
+.billing-search-form input {
+    border: none;
+    outline: none;
+    width: 100%;
+    font-size: 1rem;
+    color: #333;
+    background: transparent;
+}
+
+.history-label {
+    color: #ffffff;                 /* Matches your dark theme */
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* 4. FILTER BUTTON */
+.billing-gold-filter {
+    background-color: rgba(0, 0, 0, 0.15);
+    border: none;
+    color: #1a1a1a;
+    padding: 0 25px; /* Wider button for the stretched layout */
+    height: 38px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    white-space: nowrap; /* Prevents text from wrapping */
+}
+.billing-gold-filter:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+.billing-gold-filter i {
+    font-size: 0.9rem;
+}
+
+.payment-container h2 {
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+.payment-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #7b7b7b;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.payment-card .left p {
+  margin: 2px 0;
+  font-size: 14px;
+}
+
+.payment-card .left small {
+  font-size: 12px;
+  color: #ddd;
+}
+
+.payment-card .right {
+  font-weight: bold;
+}
+
+.billing-middle-row {
+   display: grid !important;
+    /* Split into 2 equal columns */
+    grid-template-columns: 1fr 1fr; 
+    gap: 1.5rem; /* Space between the two cards */
+    align-items: start;
+    width: 100%;
+}
+
+/* Style for the Individual Cards */
+.upcoming-card, .actions-card {
+    background: var(--card-bg); /* Your blue background variable */
+    padding: 1.5rem;
+    border-radius: 15px;
+    height: 100%; /* Ensures they are the same height */
+}
+
+/* Internal fix for the Upcoming Payment item (John Smith) */
+.payment-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.1); /* Slight darker background */
+    padding: 1rem;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+/* Quick Actions Container */
+.quick-actions {
+    display: flex;
+    gap: 20px;
+    margin-top: 15px;
+}
+
+.quick-card {
+    flex: 1;
+    padding: 20px;
+    border: 2px dashed #000000; /* The dashed "IT" look */
+    border-radius: 12px;
+    background: #DAAB2D; /* Light blue from your UI */
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #2a3a5a;
+}
+
+.quick-card:hover {
+    background: #fab700;
+    border-color: #ffffff;
+    transform: translateY(-2px);
+}
+
+.quick-card p {
+    margin-top: 10px;
+    font-weight: 600;
+}
+
+/* MODAL SYSTEM PROTOCOL */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 9999; /* Higher than your sidebar */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6); /* Dimmed background */
+    backdrop-filter: blur(3px); /* Modern blur effect */
+}
+
+.modal-content {
+    background: #ffffff;
+    width: 350px;
+    padding: 30px;
+    border-radius: 15px;
+    margin: 15% auto;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.close {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    cursor: pointer;
+    font-size: 24px;
+    color: #5c6b85;
+}
+.quick-container {
+    /* The "Skin": This adds the light blue box around the buttons */
+    background: #DAAB2D; /* Matches the upcoming-card color */
+    padding: 1.5rem;
+    border-radius: 20px;
+    
+    /* Layout */
+    display: flex !important;
+    flex-direction: column;
+    gap: 10px;
+    height: 100%; /* Ensures it matches the height of the left card */
+}
+.quick-card:hover img {
+    /* This filter turns black pixels into white pixels */
+    filter: brightness(0) invert(1) !important;
+    transition: filter 0.3s ease;
+}
+
+/* 2. The Paragraph/Text Hover (Black to White) */
+.quick-card:hover p {
+    color: #ffffff !important;
+    transition: color 0.3s ease;
+}
+
+/* 3. Ensure the base state for the text is dark */
+.quick-card p {
+    color: #000000; /* Your dark blue/black color */
+    margin-top: 10px;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+/* ==========================================================================
+   BILLING TABLE GRID SYSTEM (Clean Version)
+   ========================================================================== */
+
+.table-wrapper {
+    grid-column: span 4;
+    overflow-x: auto;
+    background: #929292; /* Updated to dark to match your dashboard */
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Base Row Structure */
+.billing-grid-row {
+    position: relative;
+    display: grid;
+    padding: 1.2rem;
+    text-align: center;
+    align-items: center;
+    width: 100%;
+    color: #333333;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.2s ease-in-out;
+}
+
+/* 1. REGULAR VIEW: 8 Columns */
+.billing-grid-row.regular-grid {
+  grid-template-columns: 1.2fr 1.5fr 0.8fr 1fr 1fr 1.5fr 0.8fr;
+}
+
+/* 2. REFUND VIEW: 6 Columns */
+.billing-grid-row.refund-grid {
+    grid-template-columns: 1.2fr 2.1fr 1.8fr 1.8fr 1.4fr 0.6fr;
+}
+
+.billing-grid-row.failed-grid {
+    /* Member ID, Name, Plan, Amount, Expiry, Status */
+    grid-template-columns: 0.8fr 1.8fr 1.2fr 1fr 1.2fr 1fr;
+}
+
+/* --- ZEBRA STRIPING & HOVER LOGIC --- */
+
+/* Odd Rows: Black */
+.table-wrapper .billing-grid-row:not(.header-row):nth-child(odd) {
+    background-color: #929292;
+    color: #ffffff;
+}
+
+/* Even Rows: Yellow */
+.table-wrapper .billing-grid-row:not(.header-row):nth-child(even) {
+    background-color: #fde977;
+    color: #333333;
+}
+
+/* Hover State: Premium Blue */
+.table-wrapper .billing-grid-row:not(.header-row):hover {
+    background-color: #3f81ec !important; 
+    color: #ffffff !important;           
+    transform: scale(1.005);             
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    z-index: 10;                         
+    cursor: pointer;
+}
+
+/* Ensure child text and icons turn white on hover */
+.table-wrapper .billing-grid-row:not(.header-row):hover .reason-text,
+.table-wrapper .billing-grid-row:not(.header-row):hover i {
+    color: #ffffff !important;
+}
+
+/* --- OPTIMIZED REASON BOX --- */
+
+.reason-box {
+    background: rgb(63, 107, 202) !important; /* Glass-like blue */
+    border-left: 3px solid #3f81ec !important;
+    padding: 6px 10px;
+    border-radius: 6px;
+    width: 100%; /* Spans the grid cell */
+    max-width: 220px;
+    margin: 0 auto;
+    display: block;
+    max-height: 65px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: #3f81ec rgba(255, 255, 255, 0.1);
+}
+
+/* Sticky Tag within Reason Box */
+.reason-tag {
+    display: block;
+    font-size: 0.65rem; /* Increased from 0.20rem for readability */
+    font-weight: 800;
+    color: #3f81ec;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: sticky;
+    top: 0;
+    background: inherit; /* Matches parent background */
+    z-index: 1;
+    margin-bottom: 4px;
+}
+
+.reason-text {
+    font-style: italic;
+    font-size: 0.9rem !important;
+    line-height: 1.4;
+    margin: 0;
+    transition: color 0.2s ease;
+}
+
+/* Custom Scrollbar for Chrome/Edge */
+.reason-box::-webkit-scrollbar {
+    width: 4px;
+}
+.reason-box::-webkit-scrollbar-thumb {
+    background: #3f81ec;
+    border-radius: 10px;
+}
+
+/* --- HEADER ROW STYLING --- */
+
+.billing-grid-row.header-row {
+    font-weight: bold;
+    background: #5c6b85;
+    color: #ffffff;
+    border-radius: 10px; /* Restored to match the rounded look of your rows */
+    border-bottom: 2px solid #5c6b85;
+    margin-bottom: 15px;
+    padding-bottom: 1.2rem;
+}
+
+.upcoming-card h4 {
+    font-size: 1.2rem;
+    font-weight: 700 !important; /* Extra Bold */
+    color: #000000;
+    margin-bottom: 15px;
+    letter-spacing: 0.5px;
+}
+
+/* Quick Actions Heading */
+.quick-container h2 {
+    font-size: 1.2rem;
+    font-weight: 700 !important; /* Extra Bold */
+    color: #000000;
+    margin-bottom: 15px;
+    letter-spacing: 0.5px;
+}
+
+.upcoming-card {
+    display: flex;
+    flex-direction: column;
+    height: 300px; /* Adjust this height to match your Quick Actions card */
+}
+
+.upcoming-list {
+    flex: 1;    
+    overflow-y: auto; /* THE FIX: Enables the vertical scrollbar */
+    padding-right: 10px; /* Space for the scrollbar so it doesn't touch the text */
+    margin-top: 10px;
+}
+
+/* Custom Scrollbar Styling (Optional: Makes it look modern) */
+.upcoming-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.upcoming-list::-webkit-scrollbar-thumb {
+    background: #5c6b85;
+    border-radius: 10px;
+}
+
+.upcoming-list::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+}
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    text-align: center;
+    opacity: 0.6; /* Makes it look subtle */
+}
+
+.empty-state i {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: #2a3a5a;
+}
+
+.empty-state p {
+    font-weight: 800 !important;
+    margin: 0;
+    color: #2a3a5a;
+}
+
+.empty-state span {
+    font-size: 0.8rem;
+}
+/* Modal Overlay: Dark background that covers the screen */
+
+
+/* --- THE BOX (Content) --- */
+.modal-content {
+    background: #111111; 
+    width: 100%;
+    max-width: 600px;
+    padding: 32px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+    position: relative;
+    z-index: 100000; /* Higher than overlay */
+}
+.modal-overlay.active,
+.modal-overlay.is-open {
+    display: flex;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+}
+/* --- Header --- */
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 15px;
+}
+
+.modal-header h3 {
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 1.25rem;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+}
+
+/* --- Close (X) Button --- */
+.close-btn {
+    background: transparent;
+    border: none;
+    color: #666;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.close-btn:hover {
+    color: #ff4d4d;
+}
+
+/* --- Form Grid --- */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+/* --- Labels --- */
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #aaa; /* Clean grey text */
+    font-size: 0.85rem;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* --- Premium Inputs & Selects --- */
+.modal-content input,
+.modal-content select {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 8px;
+    border: 1px solid #333;
+    background: #1a1a1a;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.modal-content input:focus,
+.modal-content select:focus {
+    border-color: #C9A84C; /* Gold focus ring */
+    background: #222;
+}
+
+/* Placeholder */
+.modal-content input::placeholder {
+    color: #555;
+}
+
+/* --- Footer Buttons --- */
+.modal-footer {
+    display: flex;
+    justify-content: flex-end; /* Aligns buttons to the right */
+    margin-top: 32px;
+    gap: 12px;
+}
+
+/* --- Button Styling --- */
+.btn-cancel,
+.btn-register {
+    padding: 11px 24px;
+    border-radius: 8px;
+    border: none;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+/* Cancel - Matches the Secondary style */
+.btn-cancel {
+    background: transparent;
+    border: 1px solid #444;
+    color: #aaa;
+}
+
+.btn-cancel:hover {
+    border-color: #666;
+    color: #fff;
+}
+
+/* Register/Save - Using the Brand Gold */
+.btn-register {
+    background: #C9A84C;
+    color: #000; /* Dark text on gold background looks premium */
+}
+
+.btn-register:hover {
+    background: #b39540;
+    transform: translateY(-1px);
+}
+
+/* membership-donut-container*/
+/* membership-donut-container*/
+
+.membership-donut-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 2rem;
+    padding: 20px;
+    background: var(--card-bg);
+    border-radius: 15px;
+}
+
+.donut-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.donut-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.donut {
+    position: relative;
+    width: 120px;
+    height: 120px;
+}
+
+.donut-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.donut-text h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #000; /* Black as requested for icons, works well for text too */
+}
+
+.donut-text p {
+    margin: 0;
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    color: #666;
+}
+
+.donut-line {
+    transition: stroke-dasharray 0.5s ease;
+}
+
+.pagination-container {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+/* This is the secret: Force the container to be a single row */
+.pagination-container nav {
+    display: flex !important;
+    flex-direction: row !important; 
+    align-items: center !important;
+    justify-content: center;
+    gap: 20px; /* Space between words and numbers */
+    width: 100%;
+}
+
+/* 1. Style for the "Showing X to Y" text block */
+.pagination-container nav > div:first-child {
+    display: flex;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 14px;
+    margin-bottom: 0 !important; /* Prevents it from jumping up */
+}
+
+/* 2. Style for the actual Button block */
+.pagination-container nav > div:last-child {
+    display: flex;
+    align-items: center;
+}
+
+/* 3. Style for the Numbers and Words inside the text block */
+.pagination-container nav p {
+    margin: 0 !important;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* 4. Fix the buttons (numbers) height and alignment */
+.pagination-container nav a,
+.pagination-container nav span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 34px;
+    min-width: 34px;
+    padding: 0 10px;
+    margin: 0 2px;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white !important;
+    text-decoration: none;
+    font-size: 14px;
+    line-height: 1;
+    border: none;
+}
+
+/* Active page pill */
+.pagination-container nav span[aria-current="page"] {
+    background-color: #ceba63 !important;
+    font-weight: bold;
+}
+
+/* Remove giant icons if they appear */
+.pagination-container svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* Status Pill Variations */
+/* Base Pill Style */
+.status-pill {
+    display: inline-block;
+    padding: 4px 16px;
+    border-radius: 50px; /* Fully rounded edges like your image */
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-align: center;
+    min-width: 100px;
+}
+
+/* Pending - Soft Orange */
+.status-pill.pending {
+    background-color: #f8d97e; 
+    color: #f88b2c;
+}
+
+/* Approved/Accepted - Soft Green (Matches your screenshot) */
+.status-pill.approved {
+    background-color: #8cfa95; /* Very light green background */
+    color: #2e7d32;           /* Dark green text */
+}
+
+/* Declined - Soft Red/Grey */
+.status-pill.declined {
+    background-color: #f87e91; 
+    color: #c62828;
+}
+
+/* Action Button Container */
+.approval-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+/* Individual Icon Buttons */
+.approve-icon-btn, .decline-icon-btn {
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+    color: white;
+}
+
+.approve-icon-btn { background-color: #27ae60; }
+.approve-icon-btn:hover { background-color: #2ecc71; transform: scale(1.1); }
+
+.decline-icon-btn { background-color: #e74c3c; }
+.decline-icon-btn:hover { background-color: #c0392b; transform: scale(1.1); }
+
+/* Row Highlight for Pending Requests */
+.pending-highlight {
+    border-left: 4px solid #f39c12 !important;
+    background-color: rgb(160, 158, 138) !important;
+}
+
+.action-cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Add-admin-staff {
+    background-color: #DAAB2D;
+    color: #1a202c;
+    padding: 0.8rem 1.5rem;
+    border-radius: 30px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+
+}
+
+.Add-admin-staff:hover {
+    background-color: #7e631a; 
+    transform: translateY(-2px);
+    color: #1a202c;
+}
+
+/* Active Effect: "Pressed" look */
+.Add-admin-staff:active {
+    transform: translateY(0);
+}
+
+.adminstaff-header {
+    display: flex;
+    justify-content: space-between; /* Pushes Title to left, Button to right */
+    align-items: center; /* Centers them vertically */
+    width: 100%;
+    margin-bottom: 2rem; /* Space before the search bar */
+    padding-top: 0.5rem;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+}
+
+.sidebar ul {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Sidebar User Profile Section */
+.sidebar-user-profile {
+    margin-top: auto;
+    padding: 16px 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    position: relative;
+    z-index: 10;
+    transition: background 0.3s ease; /* Smooth transition for the row background */
+}
+
+.user-avatar {
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    border-radius: 50% !important;
+    overflow: hidden;
+    background: #1f1a0e;
+    border: 1px solid #C9A84C;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #C9A84C;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    pointer-events: none; /* Keep this so the click goes to the LI */
+}
+
+
+.sidebar-user-profile:hover .user-avatar {
+    background: #C9A84C;
+    color: #0e0e0e;
+    box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.25);
+    transform: scale(1.05); /* Optional: slight pop effect */
+}
+
+.user-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.user-name {
+    color: #f0f0f0;
+    font-size: 0.95rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.user-role {
+color: #1b170c; /* Changed from #000000 to Gold for readability */
+    font-size: 0.78rem;
+    font-weight: 800;
+    font-family: 'Inter', sans-serif;
+    margin: 2px 0 0 0;
+    text-transform: capitalize;
+}
+
+
+.logout-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666 !important;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: color 0.2s;
+    flex-shrink: 0;
+    padding: 4px;
+}
+
+.logout-link:hover {
+    color: #ff4d4d !important;
+}
+
+.logout-link i {
+    margin: 0;
+}
+
+/* ─── Dashboard Logout Modal ─── */
+/* --- Global Modal Overlay --- */
+
+.modal-overlay.is-open {
+    display: flex;
+    opacity: 1;
+}
+
+/* --- Modal Card Styling --- */
+.modal-card {
+    background: #111; /* Deep dark background */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 32px;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.modal-title {
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+}
+
+/* --- Button Styling --- */
+.btn-modal-secondary {
+    flex: 1;
+    padding: 11px;
+    background: transparent;
+    border: 1px solid #444;
+    border-radius: 8px;
+    color: #aaa;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-modal-secondary:hover {
+    border-color: #C9A84C; /* Gold hover like success modal */
+    color: #C9A84C;
+}
+
+.btn-modal-danger {
+    flex: 1;
+    padding: 11px;
+    background: #ff4d4d;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.btn-modal-danger:hover {
+    background: #cc3333;
+}
+/* ─── Modal Overlay ─── */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(5px);
+    z-index: 99999;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.modal-overlay.active,
+.modal-overlay.is-open {
+    display: flex;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+}

@@ -1,0 +1,869 @@
+:root {
+    --gym-yellow:#D4AF37;
+    --gym-black: #111111;
+    --gym-gray: #777777;
+}
+
+.landing-container {
+    background-color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Navbar */
+.landing-nav {
+    padding: 2rem 5rem;
+    display: flex;
+    justify-content: center;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--gym-black);
+    font-weight: 600;
+    margin: 0 1.5rem;
+    font-size: 0.9rem;
+    position: relative;
+}
+
+.nav-links a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: var(--gym-yellow);
+}
+
+/* Hero Content */
+.hero-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10%;
+    height: 80vh;
+}
+
+.hero-content {
+    max-width: 450px;
+    z-index: 2;
+}
+
+.fitness-icons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.yellow-icon {
+    background-color: var(--gym-yellow);
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    font-size: 0.8rem;
+}
+
+.hero-title {
+    font-size: 5rem;
+    font-weight: 400;
+    line-height: 1;
+    margin: 0;
+    letter-spacing: 2px;
+}
+
+.hero-subtitle {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: -10px;
+}
+
+.hero-subtitle h2 {
+    font-size: 3rem;
+    font-weight: 900;
+    margin: 0;
+}
+
+.hero-subtitle .line {
+    flex-grow: 1;
+    height: 8px;
+    background-color: var(--gym-black);
+    position: relative;
+}
+
+.hero-description {
+    color: var(--gym-gray);
+    font-size: 0.9rem;
+    margin: 20px 0;
+    line-height: 1.6;
+}
+
+.join-btn {
+    background-color: var(--gym-black);
+    color: white;
+    padding: 12px 35px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Image & Badge */
+.hero-image-wrapper {
+    position: relative;
+    z-index: 2;
+}
+
+.circle-image-container {
+    width: 450px;
+    height: 450px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 15px solid #f2f2f2;
+}
+
+.circle-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.promo-badge {
+    position: absolute;
+    bottom: 50px;
+    left: -40px;
+    background-color: var(--gym-yellow);
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    line-height: 1;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+/* Decorative Elements */
+.dot-pattern {
+    position: absolute;
+    bottom: 50px;
+    left: 50px;
+    width: 100px;
+    height: 100px;
+    background-image: radial-gradient(#ccc 2px, transparent 2px);
+    background-size: 15px 15px;
+}
+.yellow-triangles {
+    position: absolute;
+    right: 50px;
+    bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.yellow-triangles span {
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 15px solid var(--gym-yellow);
+}
+/* Add this to your public/css/landing.css */
+.landing-container {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.circle-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This stops the image from being huge */
+}
+
+.hero-image-wrapper {
+    max-width: 500px; /* Limits the size on screen */
+}
+
+.gold-text {
+    color: #D4AF37 !important; /* Golden Yellow */
+    letter-spacing: 5px;
+    /* This adds a subtle "glow" to make the gold pop */
+    text-shadow: 0px 0px 10px rgba(212, 175, 55, 0.3);
+}
+
+/* 1. The Magic Line for Smooth Scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* 2. Styling the About Section so it's far enough down to scroll */
+.about-container {
+    min-height: 100vh; /* Takes up the whole screen */
+    padding: 100px 10%;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow: visible;
+}
+
+.section-title {
+    font-size: 3.5rem;
+    font-weight: 900;
+    margin-bottom: 2rem;
+}
+
+/* Ensure your gold-text class is defined */
+.gold-text {
+    color: #D4AF37;
+}
+.about-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Left Content */
+.about-text {
+    flex: 1;
+}
+
+.about-title {
+    font-size: 4rem;
+    font-weight: 800;
+    margin-bottom: 2rem;
+    text-transform: capitalize;
+}
+
+.about-description p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #5e5d5d; /* Slightly dimmed text for better readability */
+    margin-bottom: 1.5rem;
+}
+
+/* Right Content (The Image Card) */
+.about-visual {
+    flex: 1.2;
+    position: relative;
+}
+
+.image-card {
+    width: 100%;
+    border-radius: 20px; /* Rounded corners like the screenshot */
+    overflow: hidden;
+    position: relative;
+}
+
+.image-card img {
+    width: 100%;
+    height: 450px;
+    object-fit: cover;
+    display: block;
+}
+
+/* Slider Controls Positioning */
+.slider-controls {
+   position: absolute;
+    bottom: 20px; /* Moves it up into the black area */
+    left: 20px;   /* Adds a little breathing room from the left */
+    right: 20px;  /* Spans across the width */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;  /* Ensures it stays on top of the image */
+}
+
+.progress-bars {
+    display: flex;
+    gap: 10px;
+}
+
+.bar {
+    width: 40px;
+    height: 3px;
+    background-color: #444;
+}
+
+.bar.active {
+    background-color: var(--gym-yellow); /* Uses your golden yellow */
+}
+
+.arrow-buttons {
+    display: flex;
+    gap: 20px;
+}
+
+.arrow-buttons button {
+    background: none;
+    border: none;
+    color: rgb(0, 0, 0);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.arrow-buttons button:hover {
+    color: var(--gym-yellow);
+}
+
+/* Contact Section Styling */
+.contact-container {
+    background-color: #111; /* Slightly lighter than the black About section */
+    padding: 100px 10%;
+    color: white;
+}
+
+.contact-wrapper {
+    display: flex;
+    gap: 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: flex-start;
+}
+
+.contact-info {
+    flex: 1;
+}
+
+.contact-details {
+    margin-top: 30px;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+}
+
+.detail-item i {
+    color: #D4AF37; /* Your Golden Yellow */
+    width: 20px;
+}
+
+/* Contact Form */
+/* Contact Form */
+.contact-container {
+    background-color: #ffffff; /* Slightly darker for the final section */
+    padding: 100px 10%;
+    color: rgb(0, 0, 0);
+    text-align: center;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 Equal columns */
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.contact-card {
+    background-color: #1a1a1a;
+    padding: 40px 20px;
+    border-radius: 15px;
+    transition: transform 0.3s ease, background 0.3s ease;
+    border: 1px solid #222;
+}
+
+.contact-card:hover {
+    transform: translateY(-10px); /* Lifts the card on hover */
+    background-color: #222;
+}
+
+.icon-box {
+    width: 60px;
+    height: 60px;
+    background-color: rgba(212, 175, 55, 0.1); /* Subtle gold background */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px auto;
+}
+
+.icon-box i {
+    color: #D4AF37; /* Your Golden Yellow */
+    font-size: 1.5rem;
+}
+
+.contact-card h3 {
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+    color: #ffffff;
+}
+
+.contact-card p {
+    color: #888;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+/* Responsive fix for smaller screens */
+@media (max-width: 768px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Services Form */
+/* Services Form */
+
+.services-container {
+    background-color: #ffffff;
+    padding: 100px 10%;
+    color: rgb(0, 0, 0);
+    text-align: center;
+}
+
+.section-subtitle {
+    color: #888;
+    margin-top: -15px;
+    margin-bottom: 50px;
+}
+
+.membership-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.membership-card {
+    background-color: #000000;
+    padding: 40px 30px;
+    border-radius: 20px;
+    border: 1px solid #222;
+    transition: 0.3s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Make the Monthly Basic stand out */
+.membership-card.featured {
+    border: 2px solid #D4AF37;
+    transform: scale(1.05);
+    background-color: #161616;
+}
+
+.badge {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #D4AF37;
+    color: black;
+    padding: 5px 15px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    border-radius: 20px;
+}
+
+.card-header h3 {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.price {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #D4AF37;
+}
+
+.price span {
+    font-size: 1rem;
+    color: #888;
+    font-weight: normal;
+}
+
+.features {
+    list-style: none;
+    padding: 0;
+    margin: 30px 0;
+    text-align: left;
+    flex-grow: 1;
+}
+
+.features li {
+    margin-bottom: 12px;
+    color: #ccc;
+    font-size: 0.95rem;
+}
+
+.features i {
+    color: #D4AF37;
+    margin-right: 10px;
+    font-size: 0.8rem;
+}
+
+.features .disabled {
+    color: #444;
+    text-decoration: line-through;
+}
+
+.features .disabled i {
+    color: #444;
+}
+
+.plan-btn {
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #D4AF37;
+    background: transparent;
+    color: #D4AF37;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.plan-btn:hover {
+    background: #D4AF37;
+    color: black;
+}
+
+.gold-btn {
+    background: #D4AF37;
+    color: black;
+}
+
+/* 1. Define Variables - CRITICAL for the colors to work */
+:root {
+    --modal-bg: #1a1a1a;
+    --gold-primary: #D4AF37;
+    --input-bg: #ffffff;
+    --input-text: #333333;
+}
+ 
+/* ─── Refund Modal Overlay ─── */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;                    /* always flex, never none */
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    backdrop-filter: blur(8px);
+    opacity: 0;
+    pointer-events: none;             /* blocks clicks when hidden */
+    visibility: hidden;               /* hides from screen readers too */
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-overlay.is-open {
+    opacity: 1;
+    pointer-events: all;
+    visibility: visible;
+}
+ 
+.modal-card {
+    background: var(--modal-bg);
+    width: 90%;
+    max-width: 420px;
+    padding: 40px;
+    border-radius: 20px;
+    border: 2px solid var(--gold-primary);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+    text-align: center;
+    position: relative;
+    box-sizing: border-box;
+}
+ 
+.modal-title {
+    color: var(--gold-primary);
+    font-size: 1.6rem;
+    font-weight: 900;
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 25px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+ 
+.modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+ 
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 14px 15px;
+    border: 1px solid #333;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-family: 'Poppins', sans-serif;
+    background: var(--input-bg);
+    color: var(--input-text);
+    outline: none;
+    box-sizing: border-box;
+}
+ 
+.form-group select {
+    cursor: pointer;
+}
+ 
+.submit-btn {
+    background: var(--gold-primary);
+    color: #000;
+    border: none;
+    padding: 16px;
+    font-weight: 800;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 1px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+    text-transform: uppercase;
+    width: 100%;
+}
+ 
+.submit-btn:hover {
+    background: #b8972f;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+}
+ 
+.cancel-link {
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    margin-top: 15px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+    font-family: 'Poppins', sans-serif;
+    display: block;
+}
+ 
+.cancel-link:hover {
+    opacity: 1;
+    text-decoration: underline;
+}
+ 
+/* ─── Admin Login Overlay ─── */
+.admin-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    font-family: 'Inter', sans-serif;
+    background-image: radial-gradient(ellipse at 50% 0%, rgba(201, 168, 76, 0.07) 0%, transparent 65%);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.admin-modal-overlay.is-open {
+       opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+}
+.admin-modal-overlay.is-open .login-card {
+    animation: fadeUp 0.4s ease both;
+}
+ 
+.login-card {
+    background: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    border-radius: 18px;
+    padding: 40px 36px 36px;
+    width: 90%;
+    max-width: 420px;
+    box-sizing: border-box;
+}
+ 
+.login-card *,
+.login-card *::before,
+.login-card *::after {
+    box-sizing: border-box;
+}
+ 
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+ 
+.icon-wrap {
+    width: 48px;
+    height: 48px;
+    background: #242424;
+    border: 1px solid #333;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 22px;
+    color: #C9A84C;
+}
+ 
+.icon-wrap svg {
+    width: 22px;
+    height: 22px;
+}
+ 
+.login-card h1 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    text-align: center;
+    color: #f0f0f0;
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+}
+ 
+.subtitle {
+    text-align: center;
+    color: #666;
+    font-size: 0.85rem;
+    font-weight: 300;
+    line-height: 1.6;
+    margin-bottom: 28px;
+}
+ 
+.field {
+    position: relative;
+    margin-bottom: 12px;
+    width: 100%;
+}
+ 
+.field svg.icon {
+    position: absolute;
+    left: 13px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 15px;
+    height: 15px;
+    color: #555;
+    pointer-events: none;
+}
+ 
+.field input {
+    width: 100%;
+    background: #242424;
+    border: 1px solid #2e2e2e;
+    border-radius: 10px;
+    padding: 13px 13px 13px 38px;
+    color: #e8e8e8;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.88rem;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+ 
+.field input::placeholder {
+    color: #4a4a4a;
+}
+ 
+.field input:focus {
+    border-color: #C9A84C;
+    box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.1);
+}
+ 
+.field input[type="password"] {
+    padding-right: 45px;
+}
+ 
+.toggle-pass {
+    position: absolute;
+    right: 11px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #4a4a4a;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 4px;
+    transition: color 0.2s;
+}
+ 
+.toggle-pass:hover {
+    color: #C9A84C;
+}
+ 
+.toggle-pass svg {
+    width: 16px;
+    height: 16px;
+}
+ 
+.btn-submit {
+    width: 100%;
+    padding: 13px;
+    background: #C9A84C;
+    color: #0e0e0e;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+}
+ 
+.btn-submit:hover {
+    background: #d9b85c;
+    box-shadow: 0 4px 20px rgba(201, 168, 76, 0.25);
+}
+ 
+.btn-submit:active {
+    transform: scale(0.99);
+}
+ 
+.btn-close-link {
+    display: block;
+    width: 100%;
+    background: transparent;
+    color: #555;
+    border: none;
+    margin-top: 15px;
+    font-size: 0.8rem;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    text-align: center;
+    transition: color 0.2s;
+}
+ 
+.btn-close-link:hover {
+    color: #f0f0f0;
+    text-decoration: underline;
+}
+ 
+input::-ms-reveal,
+input::-ms-clear {
+    display: none;
+}
