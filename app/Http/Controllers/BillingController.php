@@ -190,7 +190,8 @@ $failedCount = Member::where(function($q) {
             'status'      => 'cancelled',
             'expiry_date' => now(),
         ]);
-        ActivityHelper::log('Approved a refund', $refund->member->first_name ?? 'Member', 'fa-check-circle', 'green');
+       ActivityLog::record('Approved a refund', $refund->member->first_name ?? 'Member', 'fa-check-circle', 'green');
+
 
         return back()->with('success', 'Refund approved. Awaiting disbursement.');
     }
@@ -207,7 +208,7 @@ $failedCount = Member::where(function($q) {
         $refund = Refund::findOrFail($id);
         $refund->update(['status' => 'Declined']);
 
-        ActivityHelper::log('Declined a refund request', $refund->member->first_name ?? 'Member', 'fa-xmark', 'red');
+       ActivityLog::record('Declined a refund request', $refund->member->first_name ?? 'Member', 'fa-xmark', 'red');
         return back()->with('success', 'Refund request declined.');
     }
 
@@ -238,7 +239,7 @@ $failedCount = Member::where(function($q) {
             'status'             => 'active',
         ]);
         
-        ActivityHelper::log('Processed a membership renewal', $member->first_name . ' ' . $member->last_name, 'fa-money-bill', 'green');
+        ActivityLog::record('Processed a membership renewal', $member->first_name . ' ' . $member->last_name, 'fa-money-bill', 'green');
         return redirect()->route('billing.index')->with('success', 'Membership renewed!');
     }
 

@@ -53,7 +53,7 @@ class AdminStaffController extends Controller
             'status' => 'active', 
         ]);
 
-        ActivityHelper::log('Created a new admin account', $request->familyname, 'fa-user-shield', 'purple');
+        ActivityLog::record('Added a new member', $member->first_name . ' ' . $member->last_name, 'fa-user-plus', 'blue');
         return redirect()->route('adminstaff.index')->with('success', 'New staff member added successfully!');
     }
 

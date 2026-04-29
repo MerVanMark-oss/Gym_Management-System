@@ -79,7 +79,7 @@ public function index(Request $request)
         'status'         => 'completed',
     ]);
 
-     ActivityHelper::log('Added a new member', $member->first_name . ' ' . $member->last_name, 'fa-user-plus', 'blue');
+     ActivityLog::record('Added a new member', $member->first_name . ' ' . $member->last_name, 'fa-user-plus', 'blue');
 
     return redirect()->route('members.index')->with('success', 'Member registered and payment recorded!');
 }
