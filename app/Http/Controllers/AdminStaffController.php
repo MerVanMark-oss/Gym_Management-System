@@ -44,14 +44,14 @@ class AdminStaffController extends Controller
         ]);
 
         $newAdmin = Admin::create([
-            'username' => $request->username,
-            'password' => Hash::make($request->password),
-            'contactnum' => $request->contactnum,
-            'email' => $request->email,
-            'familyname' => $request->familyname,
-            'role' => $request->role,
-            'status' => 'active', 
-        ]);
+        'username' => $request->username,
+        'password' => Hash::make($request->password),
+        'contactnum' => $request->contactnum,
+        'email' => $request->email,
+        'familyname' => $request->familyname, 
+        'role' => $request->role,
+        'status' => 'active', 
+    ]);
 
         ActivityLog::record('Added a new member', $newAdmin->familyname . ' (' . ucfirst($newAdmin->role) . ')', 'fa-user-plus', 'blue');
         return redirect()->route('adminstaff.index')->with('success', 'New staff member added successfully!');
