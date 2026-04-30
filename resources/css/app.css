@@ -1088,7 +1088,7 @@ width: 100%;
 }
 
 /* Accent Borders */
-.card-staff.total { border-left-color: #a78bfa; }      /* Purple */
+.card-staff.total { border-left-color: #60a5fa; }      /* Purple */
 .card-staff.active { border-left-color: #fb7a24; }     /* Yellow */
 .card-staff.instructor { border-left-color: #60a5fa; } /* Blue */
 .card-staff.on-leave { border-left-color: #d1d5db; }   /* Gray */
