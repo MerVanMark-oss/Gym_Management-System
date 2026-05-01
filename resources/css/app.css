@@ -2374,7 +2374,10 @@ color: #1b170c; /* Changed from #000000 to Gold for readability */
 /* ─── Mobile Responsive ─── */
 @media (max-width: 768px) {
 
-    /* Hide sidebar, show as top bar */
+    .container {
+        flex-direction: column;
+    }
+
     .sidebar {
         width: 100%;
         height: auto;
@@ -2382,12 +2385,14 @@ color: #1b170c; /* Changed from #000000 to Gold for readability */
         flex-direction: row;
         overflow-y: visible;
         overflow-x: auto;
+        z-index: 100;
     }
 
     .sidebar ul {
         flex-direction: row;
         flex-wrap: nowrap;
         overflow-x: auto;
+        padding: 0;
     }
 
     .sidebar li {
@@ -2397,9 +2402,10 @@ color: #1b170c; /* Changed from #000000 to Gold for readability */
 
     .sidebar a {
         padding: 0.8rem 1rem;
-        font-size: 0.8rem;
+        font-size: 0.75rem;
         margin-left: 0;
         border-radius: 0;
+        white-space: nowrap;
     }
 
     .sidebar li.active::before,
@@ -2413,16 +2419,17 @@ color: #1b170c; /* Changed from #000000 to Gold for readability */
 
     .sidebar-user-profile {
         padding: 8px 12px;
+        flex-shrink: 0;
     }
 
-    /* Main content fills full width */
+    /* THIS IS THE KEY FIX */
     .main-contents {
-        margin-left: 0;
-        width: 100%;
+        margin-left: 0 !important;
+        width: 100% !important;
         padding: 1rem;
+        min-height: calc(100vh - 60px);
     }
 
-    /* Stats rows stack vertically */
     .dashboard-stats-row,
     .equipment-stats-row,
     .staff-stats-row,
@@ -2431,33 +2438,55 @@ color: #1b170c; /* Changed from #000000 to Gold for readability */
         gap: 0.8rem;
     }
 
-    /* Dashboard grid stacks */
-    .dashboard-grid {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto;
+  .dashboard-grid {
+        display: flex;
+        flex-direction: column;
         gap: 1rem;
     }
 
-    .dashboard-grid-upper {
-        grid-template-columns: 1fr;
+
+  .dashboard-grid-upper {
+        display: flex;
+        flex-direction: column;
         height: auto;
+        gap: 1rem;
     }
 
-    .card-membershiptype,
+    .card-membershiptype {
+        height: auto;
+        min-height: 300px;
+        padding: 1.5rem;
+        width: 100%;
+    }
+
     .card-member-growth {
-        height: 300px;
+        height: 320px;
+        width: 100%;
     }
 
     .card-recentactivity {
+        width: 100%;
         grid-column: 1;
     }
 
-    /* Billing middle row stacks */
+    .chart-wrapper {
+        height: 220px;
+        width: 100%;
+    }
+
+    /* Donut chart spacing */
+    #membershipDonut {
+        max-width: 300px;
+        max-height: 300px;
+        margin: 0 auto;
+        display: block;
+    }
+
+
     .billing-middle-row {
         grid-template-columns: 1fr;
     }
 
-    /* Tables scroll horizontally */
     .table-wrapper {
         overflow-x: auto;
     }
@@ -2469,7 +2498,6 @@ color: #1b170c; /* Changed from #000000 to Gold for readability */
         min-width: 600px;
     }
 
-    /* Search bar full width */
     .search-filter-container {
         flex-direction: column;
     }
@@ -2484,7 +2512,6 @@ color: #1b170c; /* Changed from #000000 to Gold for readability */
         width: 100%;
     }
 
-    /* Headers stack */
     .members-header,
     .equipments-header,
     .staff-header,
@@ -2494,20 +2521,13 @@ color: #1b170c; /* Changed from #000000 to Gold for readability */
         gap: 10px;
     }
 
-    /* Cards full width */
-    .card-dashboard {
-        height: auto;
-        padding: 12px;
+    .form-grid {
+        grid-template-columns: 1fr;
     }
 
-    /* Modal full width on mobile */
     .modal-content {
         max-width: 95vw;
         padding: 20px;
-    }
-
-    .form-grid {
-        grid-template-columns: 1fr;
     }
 
     .modal-card {
@@ -2515,24 +2535,16 @@ color: #1b170c; /* Changed from #000000 to Gold for readability */
         padding: 20px;
     }
 
-    /* Quick actions stack */
     .quick-actions {
         flex-direction: column;
     }
 
-    /* History label and search */
-    .history-label {
-        font-size: 1.1rem;
-    }
-
-    /* Main heading smaller */
     .main-contents h1,
     .title-group h1 {
         font-size: 1.5rem;
     }
 }
 
-/* Extra small phones */
 @media (max-width: 480px) {
     .dashboard-stats-row,
     .equipment-stats-row,
