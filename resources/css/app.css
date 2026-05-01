@@ -2558,3 +2558,114 @@ color: #1b170c; /* Changed from #000000 to Gold for readability */
         padding: 0.6rem 0.8rem;
     }
 }
+
+@media (max-width: 768px) {
+
+    /* ─── Pagination Fix ─── */
+    .pagination-container {
+        overflow-x: auto;
+        padding-bottom: 8px;
+    }
+
+    .pagination-container nav {
+        flex-wrap: nowrap;
+        gap: 8px;
+        min-width: max-content;
+        padding: 0 4px;
+    }
+
+    .pagination-container nav a,
+    .pagination-container nav span {
+        height: 28px;
+        min-width: 28px;
+        padding: 0 6px;
+        font-size: 11px;
+        margin: 0 1px;
+        border-radius: 6px;
+    }
+
+    .pagination-container nav > div:first-child {
+        font-size: 11px;
+        white-space: nowrap;
+    }
+
+    .pagination-container svg {
+        width: 12px;
+        height: 12px;
+    }
+
+    /* ─── Members Table Horizontal Scroll ─── */
+    .members-page .table-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .member-grid-row {
+        min-width: 750px;
+        font-size: 0.8rem;
+    }
+
+    /* ─── Equipment Table ─── */
+    .equipment-page .table-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .equipment-grid-row {
+        min-width: 650px;
+        font-size: 0.8rem;
+    }
+
+    /* ─── Staff Table ─── */
+    .staff-page .table-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .staff-grid-row {
+        min-width: 750px;
+        font-size: 0.8rem;
+    }
+
+    /* ─── Billing Table ─── */
+    .billing-page .table-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .billing-grid-row {
+        min-width: 650px;
+        font-size: 0.8rem;
+    }
+
+    /* ─── General table wrapper fix ─── */
+    .table-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        border-radius: 12px;
+    }
+
+    /* Action buttons stay clickable */
+    .edit-btn,
+    .delete-btn,
+    .approve-icon-btn,
+    .decline-icon-btn {
+        pointer-events: all !important;
+        z-index: 20;
+        position: relative;
+    }
+}
+
+@media (max-width: 480px) {
+    .pagination-container nav a,
+    .pagination-container nav span {
+        height: 24px;
+        min-width: 24px;
+        font-size: 10px;
+        padding: 0 4px;
+    }
+
+    .pagination-container nav > div:first-child {
+        font-size: 10px;
+    }
+}
