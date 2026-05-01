@@ -873,10 +873,18 @@ input::-ms-clear {
 
     .landing-nav {
         padding: 1rem 1.5rem;
+        justify-content: center;
+    }
+
+    .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.3rem;
     }
 
     .nav-links a {
-        margin: 0 0.6rem;
+        margin: 0 0.4rem;
         font-size: 0.75rem;
     }
 
@@ -885,27 +893,57 @@ input::-ms-clear {
         height: auto;
         padding: 2rem 5%;
         text-align: center;
-        gap: 2rem;
+        align-items: center;
+        gap: 1.5rem;
+        min-height: auto;
     }
 
     .hero-content {
         max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .fitness-icons {
+        justify-content: center;
     }
 
     .hero-title {
-        font-size: 3rem;
+        font-size: 3.5rem;
+        text-align: center;
+        width: 100%;
+    }
+
+    .hero-subtitle {
+        justify-content: center;
+        width: 100%;
     }
 
     .hero-subtitle h2 {
-        font-size: 2rem;
+        font-size: 2.5rem;
+        text-align: center;
     }
 
     .hero-subtitle .line {
         display: none;
     }
 
-    .fitness-icons {
+    .hero-description {
+        text-align: center;
+        font-size: 0.88rem;
+    }
+
+    .join-btn {
+        width: 100%;
+        max-width: 280px;
+    }
+
+    .hero-image-wrapper {
+        max-width: 100%;
+        display: flex;
         justify-content: center;
+        margin-bottom: 0;
     }
 
     .circle-image-container {
@@ -913,15 +951,21 @@ input::-ms-clear {
         height: 280px;
     }
 
-    .hero-image-wrapper {
-        max-width: 100%;
-        display: flex;
-        justify-content: center;
+    .dot-pattern,
+    .yellow-triangles,
+    .slanted-lines {
+        display: none;
+    }
+
+    /* Remove extra empty space */
+    .landing-container {
+        overflow-x: hidden;
     }
 
     .about-wrapper {
         flex-direction: column;
         gap: 30px;
+        text-align: center;
     }
 
     .about-title {
@@ -938,6 +982,7 @@ input::-ms-clear {
 
     .membership-grid {
         grid-template-columns: 1fr;
+        gap: 20px;
     }
 
     .membership-card.featured {
@@ -953,22 +998,20 @@ input::-ms-clear {
         padding: 28px 20px;
         width: 95%;
     }
-
-    .dot-pattern,
-    .yellow-triangles,
-    .slanted-lines {
-        display: none;
-    }
 }
 
 @media (max-width: 480px) {
     .hero-title {
-        font-size: 2.2rem;
+        font-size: 2.8rem;
+    }
+
+    .hero-subtitle h2 {
+        font-size: 2rem;
     }
 
     .nav-links a {
-        margin: 0 0.4rem;
-        font-size: 0.7rem;
+        font-size: 0.68rem;
+        margin: 0 0.3rem;
     }
 
     .circle-image-container {
