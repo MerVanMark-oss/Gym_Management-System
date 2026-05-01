@@ -2370,3 +2370,179 @@ color: #1b170c; /* Changed from #000000 to Gold for readability */
     visibility: visible;
     pointer-events: all;
 }
+
+/* ─── Mobile Responsive ─── */
+@media (max-width: 768px) {
+
+    /* Hide sidebar, show as top bar */
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        flex-direction: row;
+        overflow-y: visible;
+        overflow-x: auto;
+    }
+
+    .sidebar ul {
+        flex-direction: row;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+    }
+
+    .sidebar li {
+        width: auto;
+        flex-shrink: 0;
+    }
+
+    .sidebar a {
+        padding: 0.8rem 1rem;
+        font-size: 0.8rem;
+        margin-left: 0;
+        border-radius: 0;
+    }
+
+    .sidebar li.active::before,
+    .sidebar li.active::after {
+        display: none;
+    }
+
+    .sidebar-logo {
+        display: none;
+    }
+
+    .sidebar-user-profile {
+        padding: 8px 12px;
+    }
+
+    /* Main content fills full width */
+    .main-contents {
+        margin-left: 0;
+        width: 100%;
+        padding: 1rem;
+    }
+
+    /* Stats rows stack vertically */
+    .dashboard-stats-row,
+    .equipment-stats-row,
+    .staff-stats-row,
+    .billing-stats-row {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.8rem;
+    }
+
+    /* Dashboard grid stacks */
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        gap: 1rem;
+    }
+
+    .dashboard-grid-upper {
+        grid-template-columns: 1fr;
+        height: auto;
+    }
+
+    .card-membershiptype,
+    .card-member-growth {
+        height: 300px;
+    }
+
+    .card-recentactivity {
+        grid-column: 1;
+    }
+
+    /* Billing middle row stacks */
+    .billing-middle-row {
+        grid-template-columns: 1fr;
+    }
+
+    /* Tables scroll horizontally */
+    .table-wrapper {
+        overflow-x: auto;
+    }
+
+    .member-grid-row,
+    .equipment-grid-row,
+    .staff-grid-row,
+    .billing-grid-row {
+        min-width: 600px;
+    }
+
+    /* Search bar full width */
+    .search-filter-container {
+        flex-direction: column;
+    }
+
+    .billing-action-wrapper {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .billing-gold-bar {
+        min-width: 100%;
+        width: 100%;
+    }
+
+    /* Headers stack */
+    .members-header,
+    .equipments-header,
+    .staff-header,
+    .adminstaff-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    /* Cards full width */
+    .card-dashboard {
+        height: auto;
+        padding: 12px;
+    }
+
+    /* Modal full width on mobile */
+    .modal-content {
+        max-width: 95vw;
+        padding: 20px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-card {
+        max-width: 95vw;
+        padding: 20px;
+    }
+
+    /* Quick actions stack */
+    .quick-actions {
+        flex-direction: column;
+    }
+
+    /* History label and search */
+    .history-label {
+        font-size: 1.1rem;
+    }
+
+    /* Main heading smaller */
+    .main-contents h1,
+    .title-group h1 {
+        font-size: 1.5rem;
+    }
+}
+
+/* Extra small phones */
+@media (max-width: 480px) {
+    .dashboard-stats-row,
+    .equipment-stats-row,
+    .staff-stats-row,
+    .billing-stats-row {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar a {
+        font-size: 0.7rem;
+        padding: 0.6rem 0.8rem;
+    }
+}

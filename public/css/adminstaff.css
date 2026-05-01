@@ -133,3 +133,36 @@
     }
  
     .btn-submit:active { transform: scale(0.99); }
+
+    /* ─── AdminStaff Mobile Responsive ─── */
+@media (max-width: 768px) {
+
+    body {
+        align-items: flex-start;
+        padding: 1rem;
+    }
+
+    .card {
+        padding: 24px 20px;
+        max-width: 100%;
+        border-radius: 12px;
+    }
+
+    .field input {
+        font-size: 1rem;
+        padding: 12px 12px 12px 36px;
+    }
+
+    .btn-submit {
+        padding: 14px;
+        font-size: 1rem;
+    }
+
+    h1 {
+        font-size: 1.1rem;
+    }
+
+    .subtitle {
+        font-size: 0.8rem;
+    }
+}
