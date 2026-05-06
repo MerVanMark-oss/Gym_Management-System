@@ -877,10 +877,19 @@ input::-ms-clear {
     }
 
     .nav-links {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 0.3rem;
+           display: flex;
+        flex-wrap: nowrap;      /* keeps all links in one row */
+        align-items: center;
+        justify-content: flex-start;
+        overflow-x: auto;       /* scroll horizontally if needed */
+        gap: 0;
+        width: 100%;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;  /* hides scrollbar on Firefox */
+    }
+
+    .nav-links::-webkit-scrollbar {
+        display: none;          /* hides scrollbar on Chrome */
     }
 
     .nav-links a {

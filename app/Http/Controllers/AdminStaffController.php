@@ -27,7 +27,7 @@ class AdminStaffController extends Controller
         }
 
         // Keep pagination consistent with your Blade
-        $admins = $query->orderBy('familyname', 'asc')->paginate(10);
+        $admins = $query->orderBy('familyname', 'asc')->paginate(5);
 
         return view('adminstaff', compact('admins'));
     }

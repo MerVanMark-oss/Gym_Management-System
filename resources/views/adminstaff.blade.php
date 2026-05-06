@@ -80,9 +80,9 @@
     </div>
 
     <div class="pagination-container">
-        @if(isset($admins) && $admins instanceof \Illuminate\Pagination\LengthAwarePaginator)
-            {{ $admins->links() }}
-        @endif
+    @if(isset($admins) && $admins instanceof \Illuminate\Pagination\LengthAwarePaginator)
+        {{ $admins->appends(request()->query())->links() }}
+    @endif
     </div>
 
     {{-- ADD ADMIN MODAL --}}
