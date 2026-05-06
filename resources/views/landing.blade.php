@@ -255,7 +255,7 @@
         <form action="{{ route('refunds.store') }}" method="POST" class="modal-form" id="refundForm">
             @csrf
             <div class="form-group">
-                <input type="text" name="member_id" placeholder="Member ID" required>
+                <input type="text" name="member_id" placeholder="Member ID (Forgot? Contact Us)" required>
             </div>
             <div class="form-group">
                 <select name="membership_type" required>
